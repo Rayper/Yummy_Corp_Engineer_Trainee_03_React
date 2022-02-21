@@ -1,5 +1,6 @@
 import React, { Component, SyntheticEvent } from "react";
 import '../Login.css';
+import axios from "axios";
 
 class Register extends Component {
 
@@ -10,17 +11,21 @@ class Register extends Component {
     password_confirm = '';
 
     // e: SyntheticEvent -> event supaya bisa prevent default behaviour (submit langsung refresh)
-    submit = (e: SyntheticEvent) => {
+    submit = async (e: SyntheticEvent) => {
         // untuk prevent default behaviour
         e.preventDefault();
 
-        console.log({
+        // masukin ke backend yang udah dibuat
+        const response = await axios.post('http://localhost:8000/api/register', {
             first_name: this.first_name,
             last_name: this.last_name,
             email: this.email,
             password: this.password,
             password_confirm: this.password_confirm,
         });
+
+        // print hasil inputan
+        console.log(response);
     }
 
     render() {
