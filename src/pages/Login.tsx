@@ -17,10 +17,10 @@ const Login = () => {
         e.preventDefault();
 
         // karena saat post kita kirim email dan password dan dapat cookie, untuk itu tambahkan option withCredentials
-        await axios.post('http://localhost:8000/api/login', {
+        await axios.post('login', {
             email,
             password
-        }, {withCredentials: true})
+        });
 
         // console.log(data);
 

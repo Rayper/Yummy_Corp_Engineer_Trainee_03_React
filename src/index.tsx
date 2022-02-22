@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+// setiap endpoint akan dimulai dengan http://localhost:8000/api/
+axios.defaults.baseURL = 'http://localhost:8000/api/';
+// harus dapeitn data sebelum login dll
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
