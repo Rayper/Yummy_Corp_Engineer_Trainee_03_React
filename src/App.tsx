@@ -8,6 +8,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Users from './pages/Users';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Learn_setState from './pages/Learn_setState';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path={'/users'} component={Users} />
             <Route path={'/register'} component={Register} />
             <Route path={'/login'} component={Login} />
+            <Route path={'/learn'} component={Learn_setState} />
       </BrowserRouter>
     </div>
   );
