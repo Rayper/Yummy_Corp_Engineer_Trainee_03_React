@@ -1,26 +1,53 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { SyntheticEvent, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // membuat komponen dengan cara react hooks/stateless
 const Login = () => {
 
-    // sama seperti 
-    // state = {
-    //   redirect: false
-    // };
+    // setState untuk check email
+    const[email, setEmail] = useState('');
+    // setState untuk check password
+    const[password, setPassword] = useState('');
+    // setState untuk redirect menjadi true setelah login berhasil
+    const[redirect, setRedirect] = useState(false);
 
-    // [variable, sebuah function untuk ubah variable tersebut]
-    // variable-nya bersifat immutable = tidak dapat dirubah
-    // set initial value useState dari 0
-    // kita menggunakan useState ketika akan merefresh dan merender ulang html 
-    const [count, setCount] = useState(0);
+    // bedanya kalau diregister, di tag form gaperlu this.submit, karena itu untuk class component
+    const submit = async (e: SyntheticEvent) => {
+        e.preventDefault();
+
+        // karena saat post kita kirim email dan password dan dapat cookie, untuk itu tambahkan option withCredentials
+        await axios.post('http://localhost:8000/api/login', {
+            email,
+            password
+        }, {withCredentials: true})
+
+        // console.log(data);
+
+        setRedirect(true);
+    }
+
+    if(redirect) {
+        return <Redirect to={'/'}/>;
+    }
 
     return (
-        <div className="container"> 
-           <h1>Count {count}</h1>
-           {/* input untuk merubah count */}
-           {/* harus parseInt karena default type dari e.target.value itu biasanya string */}
-           <input type="number" onChange={e => setCount(parseInt(e.target.value))}></input> 
-        </div>
+
+        <main className="form-signin">
+                <form onSubmit={submit}>
+                    <h1 className="h3 mb-3 fw-normal">Login Page</h1>
+
+                    <input type="email" className="form-control" placeholder="Email" required 
+                        onChange={e => setEmail(e.target.value)}
+                    />
+
+                    <input type="password" className="form-control" placeholder="Password" required 
+                        onChange={e => setPassword(e.target.value)}
+                    />
+ 
+                    <button className="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                </form>
+            </main>
     );
 };
 
