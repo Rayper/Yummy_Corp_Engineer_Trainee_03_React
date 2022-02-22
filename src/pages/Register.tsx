@@ -1,6 +1,7 @@
 import React, { Component, SyntheticEvent } from "react";
 import '../Login.css';
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
 
@@ -9,6 +10,9 @@ class Register extends Component {
     email = '';
     password = '';
     password_confirm = '';
+    state = {
+        redirect: false
+    };
 
     // e: SyntheticEvent -> event supaya bisa prevent default behaviour (submit langsung refresh)
     submit = async (e: SyntheticEvent) => {
@@ -16,7 +20,7 @@ class Register extends Component {
         e.preventDefault();
 
         // masukin ke backend yang udah dibuat
-        const response = await axios.post('http://localhost:8000/api/register', {
+        await axios.post('http://localhost:8000/api/register', {
             first_name: this.first_name,
             last_name: this.last_name,
             email: this.email,
@@ -25,15 +29,26 @@ class Register extends Component {
         });
 
         // print hasil inputan
-        console.log(response);
+        // console.log(response);
+
+        // set state untuk redirect jadi true setelah register
+        this.setState({
+            redirect: true
+        });
     }
 
     render() {
+
+        // cek kondisi untuk sebelum login, jika true maka akan ke page login
+        if(this.state.redirect) {
+            return <Redirect to={'/login'} />;
+        }
+
         return(
             <>
             <main className="form-signin">
                 <form onSubmit={this.submit}>
-                    <h1 className="h3 mb-3 fw-normal">Please Register</h1>
+                    <h1 className="h3 mb-3 fw-normal">Register Page</h1>
 
                     <input type="text" className="form-control" placeholder="First Name" required 
                         onChange={e => this.first_name = e.target.value}
