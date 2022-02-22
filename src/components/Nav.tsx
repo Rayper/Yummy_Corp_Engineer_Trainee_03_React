@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { User } from "../models/user";
 import '../Nav.css';
 
 // cara dengan stateful components
 const Nav = () => {
-        const [user, setUser] = useState({
-          first_name: ''
-        });
+        const [user, setUser] = useState(new User());
         // pakai useEffect karena tidak bisa menggunakan axios
         // maksudnya [] adalah useEfect hanya diapnggil 1x
         // tambahkan credentials true untuk menjadi authenticated user
@@ -23,7 +22,14 @@ const Nav = () => {
               async () => {
                 const {data} = await axios.get('http://localhost:8000/api/user');
 
-                setUser(data);
+                // ambil data dari properties user yang sudah dibut di folder Models
+                // pastikan kalau mau pake function di dalam class User, harus pake keyword new 
+                setUser(new User(
+                  data.id,
+                  data.first_name,
+                  data.last_name,
+                  data.email,
+                ));
                 }
             )();
         },[]);
@@ -37,7 +43,7 @@ const Nav = () => {
               <a className="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Yummy Engineer Trainee</a>
 
                 <ul className="my-2 my-md-0 mr-md-3">
-                  <Link to="/profile" className="p2 text-white text-decoration-none">Welcome {user?.first_name}</Link>
+                  <Link to="/profile" className="p2 text-white text-decoration-none">Welcome {user.name}</Link>
                   <Link to="/login" className="p2 text-white text-decoration-none"
                   onClick={logout}
                   >Logout</Link>
