@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // cara dengan stateless components
 const Menu = () => {
@@ -9,14 +9,14 @@ const Menu = () => {
                   <ul className="nav flex-column">
                     {/* ubah a jadi link supaya clickable */}
                     <li className="nav-item">
-                      <Link to={"/"} className="nav-link">
+                      <NavLink to={"/"} exact className="nav-link">
                         Dashboard
-                      </Link>
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <Link to={'/Users'} className="nav-link">
+                      <NavLink to={'/Users'} className="nav-link">
                         Users
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
