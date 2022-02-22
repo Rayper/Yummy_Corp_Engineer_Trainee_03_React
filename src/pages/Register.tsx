@@ -20,7 +20,7 @@ class Register extends Component {
         e.preventDefault();
 
         // masukin ke backend yang udah dibuat
-        await axios.post('http://localhost:8000/api/register', {
+        await axios.post('register', {
             first_name: this.first_name,
             last_name: this.last_name,
             email: this.email,
