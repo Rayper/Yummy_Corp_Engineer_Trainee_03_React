@@ -40,6 +40,14 @@ const Users = () => {
           }
         }
 
+        const delete_user = async (id: number) => {
+            if(window.confirm('Are you sure want to delete this record?')) {
+                await axios.delete(`users/${id}`);
+                // dapetin semua users kecuali users yang telah didelete melalui id
+                setUsers(users.filter((u: User) => u.id !== id ));
+            }
+        }
+
         return (
           <Wrapper>
             <div className="table-responsive">
@@ -61,7 +69,13 @@ const Users = () => {
                               <td>{user.first_name} {user.last_name}</td>
                               <td>{user.email}</td>
                               <td>{user.role.name}</td>
-                              <td></td>
+                              <td>
+                                <div className="btn-group mr-2">
+                                    <a href="#" className="btn btn-sm btn-outline-secondary" 
+                                    onClick={() => delete_user(user.id)}
+                                    >Delete</a>
+                                </div>
+                              </td>
                             </tr>
                           )
                           })}
