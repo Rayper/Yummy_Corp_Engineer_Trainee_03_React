@@ -1,3 +1,15 @@
 .p2 {
-    margin-right: 25px;
+    margin-right: 10px;
+}
+
+.navbar{
+    background-color: darkcyan;
+}
+
+.navbar-brand{
+    color: whitesmoke;
+}
+
+.navbar-brand:hover{
+    color: darkblue;
 }

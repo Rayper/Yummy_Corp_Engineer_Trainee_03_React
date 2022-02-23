@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { SyntheticEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import '../Login.css';
 
 // membuat komponen dengan cara react hooks/stateless
 const Login = () => {
@@ -32,22 +33,25 @@ const Login = () => {
     }
 
     return (
-
         <main className="form-signin">
                 <form onSubmit={submit}>
-                    <h1 className="h3 mb-3 fw-normal">Login Page</h1>
+                    <h1 className="login-title">Sign In Page</h1>
 
+                <div className='mb-2'>
                     <input type="email" className="form-control" placeholder="Email" required 
                         onChange={e => setEmail(e.target.value)}
                     />
+                </div>
 
+                <div className='mb-2'>
                     <input type="password" className="form-control" placeholder="Password" required 
                         onChange={e => setPassword(e.target.value)}
                     />
+                </div>
  
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                    <button className="w-75 btn-login btn-lg btn-primary" type="submit">Login</button>
                 </form>
-            </main>
+        </main>
     );
 };
 

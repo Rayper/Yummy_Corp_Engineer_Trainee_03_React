@@ -53,7 +53,7 @@ const Users = () => {
           <Wrapper>
 
             <div className="pt-3 pb-3 mb-3 border-bottom">
-                <Link to="/users/create" className="btn btn-sm btn-primary">Add</Link>
+                <Link to="/users/create" className="btn btn-sm btn-primary">Create User</Link>
             </div>
 
             <div className="table-responsive">
