@@ -10,6 +10,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Learn_setState from './pages/Learn_setState';
 import CreateUser from './pages/users/CreateUser';
+import EditUser from './pages/users/UpdateUser';
+import UpdateUser from './pages/users/UpdateUser';
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
             <Route path={'/learn'} component={Learn_setState} />
             <Route path={'/users'} exact component={Users} />
             <Route path={'/users/create'} component={CreateUser} />
+            <Route path={'/users/:id/edit'} component={UpdateUser} />
       </BrowserRouter>
     </div>
   );

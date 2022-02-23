@@ -53,7 +53,7 @@ const Users = () => {
           <Wrapper>
 
             <div className="pt-3 pb-3 mb-3 border-bottom">
-                <Link to="users/create" className="btn btn-sm btn-primary">Add</Link>
+                <Link to="/users/create" className="btn btn-sm btn-primary">Add</Link>
             </div>
 
             <div className="table-responsive">
@@ -77,9 +77,12 @@ const Users = () => {
                               <td>{user.role.name}</td>
                               <td>
                                 <div className="btn-group mr-2">
-                                    <a href="#" className="btn btn-sm btn-danger" 
-                                    onClick={() => delete_user(user.id)}
-                                    >Delete</a>
+                                        <Link to={`/users/${user.id}/edit`} className="btn btn-sm btn-success">Edit</Link>
+                                </div>
+                                <div className="btn-group mr-2">
+                                      <a href="#" className="btn btn-sm btn-danger" 
+                                      onClick={() => delete_user(user.id)}
+                                      >Delete</a>
                                 </div>
                               </td>
                             </tr>
