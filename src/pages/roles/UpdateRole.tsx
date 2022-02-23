@@ -3,9 +3,10 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Wrapper from '../../components/Wrapper';
 import { Permission } from '../../models/permission';
+import { Role } from '../../models/role';
 
-const CreateRole = () => {
-    // useState untuk permissions
+const UpdateRole = (props: any) => {
+     // useState untuk permissions
     const [permissions, SetPermissions] = useState([]);
     // useState untuk selected permissions, sebagai array number karena banyak id yg dipilih
     const [selected, setSelected] = useState([] as number[]);
@@ -17,9 +18,16 @@ const CreateRole = () => {
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get('permissions');
+                const response = await axios.get('permissions');
 
-                SetPermissions(data);
+                SetPermissions(response.data);
+
+                // sama seperti update pada user, ambil data rolesnya
+                const {data} = await axios.get(`roles/${props.match.params.id}`);
+
+                setName(data.name);
+                // dapetin array of id dari permissions dengan loop
+                setSelected(data.permissions.map((p: Permission) => p.id));
             }
         )();
     }, []);
@@ -39,12 +47,12 @@ const CreateRole = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.post('roles', {
+        await axios.put(`roles/${props.match.params.id}`, {
             name, 
             // permissions akan push oleh value selected ( beberapa permissions id )
             permissions: selected
         });
-
+        
         setRedirect(true);
     }
 
@@ -52,18 +60,20 @@ const CreateRole = () => {
         return <Redirect to='/roles' />
     }
 
+     
     return (
         <Wrapper>
-
             <br></br>
-            <h1>Create Roles Page</h1>
+            <h1>Edit Roles Page</h1>
             <br></br>
 
             <form onSubmit={submit}>
                 <div className='mb-3 mt-3 row'>
                     <label className='col-sm-2 col-form-label'>Name</label>
                     <div className='col-sm-10'>
-                        <input className='form-control' onChange={e => setName(e.target.value)}/>
+                        <input className='form-control' 
+                            defaultValue={name} 
+                            onChange={e => setName(e.target.value)}/>
                     </div>
                 </div>
 
@@ -75,6 +85,7 @@ const CreateRole = () => {
                                 <div className='form-check form-check-inline col-3' key={p.id}>
                                     <input type="checkbox" className='form-check-input' 
                                         value={p.id}
+                                        checked={selected.some(s => s === p.id)}
                                         onChange={() => check(p.id)}
                                     />
                                     <label className='form-check-label'>{p.name}</label>
@@ -90,4 +101,4 @@ const CreateRole = () => {
     );
 };
 
-export default CreateRole;
+export default UpdateRole;
