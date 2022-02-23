@@ -91,15 +91,17 @@ const Users = () => {
                     </tbody>
                   </table>
             </div>
-
-            <ul className="pagination">
-              <li className="page-item">
-                <a className="page-link" href="#" onClick={prev}>Previous</a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#" onClick={next}>Next</a>
-              </li>
-            </ul>
+            
+            <nav>  
+                <ul className="pagination">
+                  <li className="page-item">
+                    <a className="page-link" href="#" onClick={prev}>Previous</a>
+                  </li>
+                  <li className="page-item">
+                    <a className="page-link" href="#" onClick={next}>Next</a>
+                  </li>
+                </ul>
+            </nav>
 
           </Wrapper>
         );
