@@ -13,6 +13,7 @@ import CreateUser from './pages/users/CreateUser';
 import EditUser from './pages/users/UpdateUser';
 import UpdateUser from './pages/users/UpdateUser';
 import Roles from './pages/roles/Roles';
+import CreateRoles from './pages/roles/CreateRoles';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
             <Route path={'/users'} exact component={Users} />
             <Route path={'/users/create'} component={CreateUser} />
             <Route path={'/users/:id/edit'} component={UpdateUser} />
-            <Route path={'/roles'} component={Roles} />
+            <Route path={'/roles'} exact component={Roles} />
+            <Route path={'/roles/create'} exact component={CreateRoles} />
       </BrowserRouter>
     </div>
   );

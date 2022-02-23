@@ -23,12 +23,17 @@ const Roles = () => {
         if(window.confirm('Are you sure want to delete this record?')) {
             await axios.delete(`roles/${id}`);
             // dapetin semua users kecuali users yang telah didelete melalui id
-            setUsers(roles.filter((r: Role) => r.id !== id ));
+            setRoles(roles.filter((r: Role) => r.id !== id ));
         }
     }
     
     return (
         <Wrapper>
+
+            <div className="pt-3 pb-3 mb-3 border-bottom">
+                <Link to="/roles/create" className="btn btn-sm btn-primary">Create Roles</Link>
+            </div>
+
             <div className="table-responsive">
                   <table className="table table-striped table-sm">
                     <thead>
@@ -66,6 +71,3 @@ const Roles = () => {
 
 export default Roles;
 
-function setUsers(arg0: any) {
-    throw new Error('Function not implemented.');
-}
