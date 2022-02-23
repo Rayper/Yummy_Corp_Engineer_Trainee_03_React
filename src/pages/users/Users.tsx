@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Paginator from "../../components/Paginator";
 import Wrapper from "../../components/Wrapper";
 import { User } from "../../models/user";
 
@@ -28,18 +29,6 @@ const Users = () => {
           )()
         // [page] => artinya setiap ada perubahan pada page, di function next. Maka akan memanggil ulang useEffect dan reload users
         }, [page]);
-
-        const next = () => {
-          if(page < lastPage) {
-            setPage(page  + 1);
-          }
-        }
-
-        const prev = () => {
-          if(page >= 1) {
-            setPage(page - 1);
-          }
-        }
 
         const delete_user = async (id: number) => {
             if(window.confirm('Are you sure want to delete this record?')) {
@@ -92,16 +81,7 @@ const Users = () => {
                   </table>
             </div>
             
-            <nav>  
-                <ul className="pagination">
-                  <li className="page-item">
-                    <a className="page-link" href="#" onClick={prev}>Previous</a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#" onClick={next}>Next</a>
-                  </li>
-                </ul>
-            </nav>
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage} />
 
           </Wrapper>
         );
