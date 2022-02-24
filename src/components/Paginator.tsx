@@ -4,6 +4,7 @@ import React from 'react';
 // page => variable yang didapat dari component yang menggunakan paginator
 // lastPage => variable yang didapat dari component yang menggunakan Paginator
 // pageChanged => function yang dipanggil ketika ada perubahan page
+// video 59
 const Paginator = (props: {
     page: number,
     lastPage: number,
