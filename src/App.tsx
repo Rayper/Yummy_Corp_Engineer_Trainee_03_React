@@ -18,6 +18,7 @@ import UpdateRole from './pages/roles/UpdateRole';
 import CreateRole from './pages/roles/CreateRoles';
 import Products from './pages/products/Products';
 import CreateProduct from './pages/products/CreateProduct';
+import UpdateProduct from './pages/products/UpdateProduct';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path={'/roles/:id/edit'} exact component={UpdateRole} />
             <Route path={'/products'} exact component={Products} />
             <Route path={'/products/create'} exact component={CreateProduct} />
+            <Route path={'/products/:id/edit'} exact component={UpdateProduct} />
       </BrowserRouter>
     </div>
   );
