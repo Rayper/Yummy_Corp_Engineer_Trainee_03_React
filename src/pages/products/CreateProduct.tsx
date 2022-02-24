@@ -30,6 +30,11 @@ const CreateProduct = () => {
 
     return (
         <Wrapper>
+
+            <br></br>
+            <h1>Create Products Page</h1>
+            <br></br>
+
             <form onSubmit={submit}> 
                 <div className='mb-3'>
                     <label>Title</label>
@@ -38,7 +43,7 @@ const CreateProduct = () => {
 
                 <div className='mb-3'>
                     <label>Description</label>
-                    <input className='form-control' onChange={e => setDescription(e.target.value)} />
+                    <textarea className='form-control' onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
 
                 <div className='mb-3'>

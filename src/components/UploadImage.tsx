@@ -2,10 +2,9 @@ import axios from 'axios';
 import React from 'react';
 
 const UploadImage = (props: { uploaded: (url: string) => void }) => {
-
     // function untuk upload, harus ada sec value yaitu null
     const upload = async (files: FileList | null) => {
-    // jika file kosong, jgn return apa2
+        // jika file kosong, jgn return apa2
         if(files === null) return;
 
         // untuk passing image / filesnya
