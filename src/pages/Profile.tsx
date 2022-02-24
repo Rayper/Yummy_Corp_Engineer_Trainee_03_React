@@ -1,8 +1,12 @@
 import axios from 'axios';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { Dispatch, SyntheticEvent, useEffect, useState } from 'react';
 import Wrapper from '../components/Wrapper';
+import { User } from '../models/user';
+import { connect } from 'react-redux';
+import { setUser } from './redux/actions/setUserAction';
 
-const Profile = () => {
+// buat parameter untuk setUser
+const Profile = (props: { user: User, setUser: (user: User) => void }) => {
     const [first_name,setFirstName] = useState('')
     const [last_name,setLastName] = useState('')
     const [email,setEmail] = useState('')
@@ -10,26 +14,36 @@ const Profile = () => {
     const [passwordConfirm,setPasswordConfirm] = useState('')
 
     useEffect(() => {
-        (
-            async () => {
-                const {data} = await axios.get('user');
-
-                setFirstName(data.first_name);
-                setLastName(data.last_name);
-                setEmail(data.email);
-            }
-        )()
-    }, [])
+        // (
+            // async () => {
+            //     const {data} = await axios.get('user');
+                setFirstName(props.user.first_name);
+                setLastName(props.user.last_name);
+                setEmail(props.user.email);
+            // }
+        // )()
+        // setiap kali get user, maka akan manggi dependency props.user ini
+    }, [props.user]);
 
     const info_submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.put('users/updateInfo', {
+
+        // ubah disini karena menggunakan redux jadi buat variable data untuk send perubahan
+        const {data} = await axios.put('users/updateInfo', {
             first_name,
             last_name,
             email
         });
 
+        // harus mengirimkan data barunya dalam bentuk object karena ketika mendapatkan name, name tersebut berupa function
+        props.setUser(new User(
+            data.id,
+            data.first_name,
+            data.last_name,
+            data.email,
+            data.role
+          ));
     }
 
     const password_submit = async (e: SyntheticEvent) => {
@@ -38,7 +52,8 @@ const Profile = () => {
         await axios.put('users/updatePassword', {
             password,
             passwordConfirm
-        })
+        });
+        
     }
     
     return (
@@ -95,4 +110,17 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+const mapStateToProps = (state: { user: User }) => {
+    return {
+        user: state.user
+    };
+  }
+
+const mapDispatchToProps = ( dispatch: Dispatch<any> ) => {
+    return {
+        // setUser function yang didapat dari redux ( setUserAction )
+        setUser: (user: User) => dispatch(setUser(user))  
+    }
+}
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Profile);
