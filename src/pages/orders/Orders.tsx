@@ -1,12 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { blob } from 'stream/consumers';
 import Paginator from '../../components/Paginator';
 import Wrapper from '../../components/Wrapper';
 import { Order } from '../../models/order';
 import { OrderItem } from '../../models/order_item';
-import { User } from '../../models/user';
 
 // function untuk sembunyiin orders_items
 const hide = {
@@ -60,7 +57,7 @@ const Orders = () => {
     return (
         <Wrapper>
             <div className="pt-3 pb-3 mb-3 border-bottom">
-                <a href="#" className="btn btn-sm btn-primary" onClick={handleExport}>Export</a>
+                <a href='#' className="btn btn-sm btn-primary" onClick={handleExport}>Export</a>
             </div>
 
             <div className="table-responsive">
@@ -85,7 +82,7 @@ const Orders = () => {
                                         <td>Rp. {o.total_price},00</td>
                                         <td>
                                             <div className="btn-group mr-2">
-                                            <a href="#" className="btn btn-sm btn-primary" 
+                                            <a className="btn btn-sm btn-primary" 
                                                 onClick={() => select(o.id)}
                                             >View</a>
                                             </div>
@@ -107,7 +104,7 @@ const Orders = () => {
                                                     <tbody>
                                                         {o.order_items.map((i: OrderItem) => {
                                                             return(
-                                                                <tr>
+                                                                <tr key={i.id}> 
                                                                     <td>{i.id}</td>
                                                                     <td>{i.product_title}</td>
                                                                     <td>{i.quantity}</td>
