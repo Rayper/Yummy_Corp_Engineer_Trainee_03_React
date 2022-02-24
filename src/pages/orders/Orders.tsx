@@ -1,0 +1,101 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Paginator from '../../components/Paginator';
+import Wrapper from '../../components/Wrapper';
+import { Order } from '../../models/order';
+import { OrderItem } from '../../models/order_item';
+import { User } from '../../models/user';
+
+const Orders = () => {
+    // useState untuk orders
+    const [orders, setOrders] = useState([]);
+    const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(0);
+
+    useEffect(() => {
+        (
+            async () => {
+                const {data} = await axios.get(`orders?page=${page}`);
+
+                // masukan data orders ke setOrders
+                setOrders(data.data);
+                setLastPage(data.meta.last_page);
+            }
+        )();
+    }, [page]); 
+
+    return (
+        <Wrapper>
+            <div className="pt-3 pb-3 mb-3 border-bottom">
+                <Link to="/users/create" className="btn btn-sm btn-primary">Create Orders</Link>
+            </div>
+
+            <div className="table-responsive">
+                <table className="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orders.map((o: Order) => {
+                            return (
+                                <>
+                                    <tr key={o.id}>
+                                        <td>{o.id}</td>
+                                        <td>{o.full_name}</td>
+                                        <td>{o.email}</td>
+                                        <td>Rp. {o.total_price},00</td>
+                                        <td>
+                                            <div className="btn-group mr-2">
+                                            <a href="#" className="btn btn-sm btn-primary">View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colSpan={5}>
+                                            <div>
+                                                <table className='table table-sm'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Product Title</th>
+                                                            <th>Quantity</th>
+                                                            <th>Price</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {o.order_items.map((i: OrderItem) => {
+                                                            return(
+                                                                <tr>
+                                                                    <td>{i.id}</td>
+                                                                    <td>{i.product_title}</td>
+                                                                    <td>{i.quantity}</td>
+                                                                    <td>{i.price}</td>
+                                                                </tr>
+                                                            )
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage} />
+        </Wrapper>
+    );
+};
+
+export default Orders;
