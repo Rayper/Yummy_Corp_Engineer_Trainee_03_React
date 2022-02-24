@@ -123,7 +123,6 @@ const Orders = () => {
                     </tbody>
                 </table>
             </div>
-            
             <Paginator page={page} lastPage={lastPage} pageChanged={setPage} />
         </Wrapper>
     );

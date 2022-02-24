@@ -4,15 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
+import { configureStore } from './pages/redux/configureStore';
+import { Provider } from 'react-redux';
 
 // setiap endpoint akan dimulai dengan http://localhost:8000/api/
 axios.defaults.baseURL = 'http://localhost:8000/api/';
 // harus dapeitn data sebelum login dll
 axios.defaults.withCredentials = true;
 
+const store = configureStore();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

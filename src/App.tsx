@@ -20,6 +20,7 @@ import Products from './pages/products/Products';
 import CreateProduct from './pages/products/CreateProduct';
 import UpdateProduct from './pages/products/UpdateProduct';
 import Orders from './pages/orders/Orders';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <BrowserRouter>
       {/* fungsinya untuk routing */}
             <Route path={'/'} exact component={Dashboard} />  
+            <Route path={'/profile'} exact component={Profile} />  
             <Route path={'/register'} component={Register} />
             <Route path={'/login'} component={Login} />
             <Route path={'/learn'} component={Learn_setState} />
