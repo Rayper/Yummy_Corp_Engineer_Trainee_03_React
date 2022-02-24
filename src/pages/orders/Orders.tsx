@@ -7,11 +7,24 @@ import { Order } from '../../models/order';
 import { OrderItem } from '../../models/order_item';
 import { User } from '../../models/user';
 
+// function untuk sembunyiin orders_items
+const hide = {
+    maxHeight: 0,
+    transition: '800ms ease-in'
+}
+
+const show = {
+    maxHeight: '150px',
+    transition: '800ms ease-out'
+}
+
 const Orders = () => {
     // useState untuk orders
     const [orders, setOrders] = useState([]);
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(0);
+    // selected orders
+    const [selected, setSelected] = useState(0);
 
     useEffect(() => {
         (
@@ -25,6 +38,11 @@ const Orders = () => {
         )();
     }, [page]); 
 
+    const select = (id: number) => {
+        // validasi untuk orders yang di click, ketika selected === id return 0 atau bisa di collapse
+        setSelected(selected === id ? 0 : id);
+    }
+
     return (
         <Wrapper>
             <div className="pt-3 pb-3 mb-3 border-bottom">
@@ -32,7 +50,7 @@ const Orders = () => {
             </div>
 
             <div className="table-responsive">
-                <table className="table table-striped table-sm">
+                <table className="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
@@ -53,18 +71,20 @@ const Orders = () => {
                                         <td>Rp. {o.total_price},00</td>
                                         <td>
                                             <div className="btn-group mr-2">
-                                            <a href="#" className="btn btn-sm btn-primary">View</a>
+                                            <a href="#" className="btn btn-sm btn-primary" 
+                                                onClick={() => select(o.id)}
+                                            >View</a>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td colSpan={5}>
-                                            <div>
+                                            <div className='overflow-hidden' style={selected === o.id ? show : hide}>
                                                 <table className='table table-sm'>
                                                     <thead>
                                                         <tr>
-                                                            <th>No</th>
+                                                            <th>#</th>
                                                             <th>Product Title</th>
                                                             <th>Quantity</th>
                                                             <th>Price</th>
